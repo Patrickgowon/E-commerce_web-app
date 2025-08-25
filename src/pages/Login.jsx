@@ -27,7 +27,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <Input label="Email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="email@example.com"/>
         <Input label="Password" name="password" type="password" value={form.password} onChange={handleChange} placeholder="********"/>
-        <Button type="submit">Login</Button>
+        <Button type="submit">LLogin</Button>
         <p className="text-sm mt-4 text-center">
           Don't have an account? 
           <span onClick={() => navigate("/register")} className="text-blue-600 cursor-pointer ml-1">
