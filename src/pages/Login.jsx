@@ -1,42 +1,114 @@
-// src/pages/Login.jsx
-import React, { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-import Input from "../components/input";
-import Button from "../components/button";
-
-
+// pages/Login.jsx
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Logging in user:", form);
-    // ✅ Replace with backend API
-    // Example: const res = await axios.post("/api/login", form);
-    navigate("/dashboard");
-  };
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    try {
+      setTimeout(() => {
+        if (formData.email && formData.password) {
+          login({
+            id: 1,
+            name: 'John Doe',
+            email: formData.email
+          })
+          navigate('/')
+        } else {
+          setError('Please fill in all fields')
+        }
+        setLoading(false)
+      }, 1000)
+    } catch (err) {
+      setError('Failed to log in')
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <Input label="Email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="email@example.com"/>
-        <Input label="Password" name="password" type="password" value={form.password} onChange={handleChange} placeholder="********"/>
-        <Button type="submit">Login</Button>
-        <p className="text-sm mt-4 text-center">
-          Don't have an account? 
-          <span onClick={() => navigate("/register")} className="text-blue-600 cursor-pointer ml-1">
-            Register
-          </span>
-        </p>
-      </form>
-    </div>
-  );
-};
+    <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-900">
+          Login to Your Account
+        </h1>
+        
+        {error && (
+          <div className="bg-orange-50 border border-orange-500 text-orange-600 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
 
-export default Login;
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-blue-600 hover:text-blue-700">
+              Register here
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Login

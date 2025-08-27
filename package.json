@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@stripe/react-stripe-js": "^3.9.2",
+    "@stripe/stripe-js": "^7.9.0",
     "@tanstack/react-query": "^5.62.8",
     "axios": "^1.7.9",
     "chart.js": "^4.5.0",
