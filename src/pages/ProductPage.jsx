@@ -19,7 +19,134 @@ const ProductPage = () => {
   const inWishlist = isInWishlist(id)
 
   useEffect(() => {
-    const mockProducts = [/* ... same as before ... */]
+    // Fetch product data based on ID
+    // Mock data for demonstration
+    const mockProducts = [
+      {
+        id: 1,
+        name: "Wireless Headphones",
+        price: 99.99,
+        category: "electronics",
+        images: [
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+        ],
+        rating: 4.5,
+        description: "High-quality wireless headphones with noise cancellation and long battery life. Perfect for music lovers and professionals who need to focus.",
+        features: [
+          "Active noise cancellation",
+          "30-hour battery life",
+          "Bluetooth 5.0 technology",
+          "Comfortable over-ear design",
+          "Built-in microphone for calls"
+        ],
+        specifications: {
+          "Connectivity": "Bluetooth 5.0",
+          "Battery Life": "Up to 30 hours",
+          "Charging Time": "2 hours",
+          "Weight": "250g",
+          "Color": "Black"
+        },
+        stock: 15,
+        reviews: [
+          {
+            id: 1,
+            user: "John Doe",
+            rating: 5,
+            comment: "Amazing sound quality! The noise cancellation is incredible.",
+            date: "2023-10-15"
+          },
+          {
+            id: 2,
+            user: "Jane Smith",
+            rating: 4,
+            comment: "Very comfortable for long listening sessions. Battery life is as advertised.",
+            date: "2023-10-10"
+          }
+        ]
+      },
+      {
+        id: 2,
+        name: "Smart Watch",
+        price: 199.99,
+        category: "electronics",
+        images: [
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+        ],
+        rating: 4.2,
+        description: "Advanced smartwatch with health monitoring, GPS, and smartphone connectivity.",
+        features: [
+          "Heart rate monitoring",
+          "GPS tracking",
+          "Water resistant up to 50m",
+          "7-day battery life",
+          "Smart notifications"
+        ],
+        specifications: {
+          "Display": "1.3-inch AMOLED",
+          "Battery Life": "Up to 7 days",
+          "Water Resistance": "5 ATM",
+          "Compatibility": "iOS & Android",
+          "Connectivity": "Bluetooth, Wi-Fi"
+        },
+        stock: 8,
+        reviews: [
+          {
+            id: 1,
+            user: "Mike Johnson",
+            rating: 4,
+            comment: "Great fitness tracker with accurate GPS. Battery lasts a full week!",
+            date: "2023-10-12"
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: "Running Shoes",
+        price: 89.99,
+        category: "fashion",
+        images: [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+        ],
+        rating: 4.7,
+        description: "Lightweight running shoes with superior cushioning and support for all types of runners.",
+        features: [
+          "Breathable mesh upper",
+          "Enhanced cushioning technology",
+          "Durable rubber outsole",
+          "Reflective details for night safety",
+          "Ortholite comfort footbed"
+        ],
+        specifications: {
+          "Weight": "280g (per shoe)",
+          "Drop": "8mm",
+          "Suitable For": "Road running, Gym",
+          "Closure": "Lace-up",
+          "Material": "Mesh, Rubber, EVA"
+        },
+        stock: 22,
+        reviews: [
+          {
+            id: 1,
+            user: "Sarah Wilson",
+            rating: 5,
+            comment: "Most comfortable running shoes I've ever owned! Perfect for long distances.",
+            date: "2023-10-05"
+          },
+          {
+            id: 2,
+            user: "David Brown",
+            rating: 4,
+            comment: "Great grip and support. True to size.",
+            date: "2023-09-28"
+          }
+        ]
+      }
+    ]
+
     const foundProduct = mockProducts.find(p => p.id === parseInt(id))
     setProduct(foundProduct)
     setLoading(false)
@@ -29,6 +156,7 @@ const ProductPage = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart(product)
     }
+    // Show a confirmation (could be a toast notification in a real app)
     alert(`${quantity} ${product.name} added to cart!`)
   }
 
@@ -37,6 +165,7 @@ const ProductPage = () => {
       alert('Please log in to add items to your wishlist')
       return
     }
+    
     if (inWishlist) {
       removeFromWishlist(product.id)
       alert('Removed from wishlist')
@@ -194,7 +323,7 @@ const ProductPage = () => {
             </button>
             <button 
               onClick={handleWishlistToggle}
-              className={`p-3 border rounded-lg flex items-center justify-center ${inWishlist ? 'border-orange-500 text-orange-500' : 'border-gray-300 text-gray-400 hover:border-gray-400'}`}
+              className={`p-3 border rounded-lg flex items-center justify-center ${inWishlist ? 'border-pink-500 text-pink-500' : 'border-gray-300 text-gray-400 hover:border-gray-400'}`}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -231,7 +360,7 @@ const ProductPage = () => {
             {product.reviews.map(review => (
               <div key={review.id} className="bg-white rounded-lg shadow-md p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
                     <span className="text-orange-600 font-semibold">
                       {review.user.charAt(0).toUpperCase()}
                     </span>
